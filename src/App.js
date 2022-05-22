@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import Main from "./pages/Main";
 
 const App = (props) => {
-  console.log(props);
   return (
     <Main
       loading={props.loading}
@@ -15,7 +14,7 @@ const App = (props) => {
 };
 
 const ConnectedApp = connect((state) => {
-  console.log("state connect ", state);
+  console.log(state);
   return state;
 })(App);
 

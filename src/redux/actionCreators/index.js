@@ -1,3 +1,4 @@
+// Action Creators
 const requestDog = () => {
   return { type: "REQUESTED_DOG" };
 };
@@ -10,12 +11,14 @@ const requestDogError = () => {
   return { type: "REQUESTED_DOG_FAILED" };
 };
 
-export const fetchDog = (dispatch) => {
-  dispatch(requestDog());
-  return fetch("https://dog.ceo/api/breeds/image/random")
-    .then((res) => res.json())
-    .then(
-      (data) => dispatch(requestDogSuccess(data)),
-      (err) => dispatch(requestDogError())
-    );
+export const fetchDog = () => {
+  return (dispatch) => {
+    dispatch(requestDog());
+    fetch("https://dog.ceo/api/breeds/image/random")
+      .then((res) => res.json())
+      .then(
+        (data) => dispatch(requestDogSuccess(data)),
+        (err) => dispatch(requestDogError())
+      );
+  };
 };
