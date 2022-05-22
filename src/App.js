@@ -1,21 +1,7 @@
 import React from "react";
-import { connect } from "react-redux";
-import Main from "./pages/Main";
+import "./styles.css";
+import { ListTodo } from "./components/ListTodo";
 
-const App = (props) => {
-  return (
-    <Main
-      loading={props.loading}
-      error={props.error}
-      url={props.url}
-      dispatch={props.dispatch}
-    />
-  );
-};
-
-const ConnectedApp = connect((state) => {
-  console.log(state);
-  return state;
-})(App);
-
-export default ConnectedApp;
+export default function App() {
+  return <ListTodo />;
+}
