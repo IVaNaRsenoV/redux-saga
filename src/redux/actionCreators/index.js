@@ -1,4 +1,5 @@
-// Action Creators
+import { put, call } from "redux-saga/effects";
+
 const requestDog = () => {
   return { type: "REQUESTED_DOG" };
 };
@@ -11,14 +12,16 @@ const requestDogError = () => {
   return { type: "REQUESTED_DOG_FAILED" };
 };
 
-export const fetchDog = () => {
-  return (dispatch) => {
-    dispatch(requestDog());
-    fetch("https://dog.ceo/api/breeds/image/random")
-      .then((res) => res.json())
-      .then(
-        (data) => dispatch(requestDogSuccess(data)),
-        (err) => dispatch(requestDogError())
+export default function* fetchDogAsync() {
+  try {
+    yield put(requestDog());
+    const data = yield call(() => {
+      return fetch("https://dog.ceo/api/breeds/image/random").then((res) =>
+        res.json()
       );
-  };
-};
+    });
+    yield put(requestDogSuccess(data));
+  } catch (error) {
+    yield put(requestDogError());
+  }
+}
